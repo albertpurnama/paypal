@@ -542,6 +542,15 @@ type (
 		Links            []Link                `json:"links,omitempty"`
 	}
 
+	RelatedID struct {
+		OrderID         string `json:"order_id"`
+		AuthorizationID string `json:"authorization_id"`
+		CaptureID       string `json:"capture_id"`
+	}
+
+	SupplementaryData struct {
+		RelatedIDs []RelatedID `json:"related_ids"`
+	}
 	//https://developer.paypal.com/docs/api/payments/v2/#captures_get
 	CaptureDetailsResponse struct {
 		Status                    string                     `json:"status,omitempty"`
@@ -557,6 +566,7 @@ type (
 		Links                     []Link                     `json:"links,omitempty"`
 		UpdateTime                *time.Time                 `json:"update_time,omitempty"`
 		CreateTime                *time.Time                 `json:"create_time,omitempty"`
+		SupplementaryData         *SupplementaryData         `json:"supplementary_data,omitempty"`
 	}
 
 	// CaptureOrderRequest - https://developer.paypal.com/docs/api/orders/v2/#orders_capture
