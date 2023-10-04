@@ -1625,6 +1625,55 @@ type (
 		TotalPages int    `json:"total_pages,omitempty"`
 		Links      []Link `json:"links,omitempty"`
 	}
+
+	// https://developer.paypal.com/docs/api/partner-referrals/v1/#definition-oauth_integration
+	OAuthIntegration struct {
+		IntegrationType   string            `json:"integration_type"`
+		IntegrationMethod string            `json:"integration_method"`
+		Status            string            `json:"status"`
+		OAuthThirdParty   []OAuthThirdParty `json:"oauth_third_party,omitempty"`
+	}
+
+	// https://developer.paypal.com/docs/api/partner-referrals/v1/#definition-party
+	OAuthThirdParty struct {
+		PartnerClientID  string   `json:"partner_client_id"`
+		MerchantClientID string   `json:"merchant_client_id"`
+		Scopes           []string `json:"scopes"`
+		AccessToken      string   `json:"access_token"`
+		RefreshToken     string   `json:"refresh_token"`
+	}
+
+	// https://developer.paypal.com/docs/api/partner-referrals/v1/#definition-product
+	// TODO@paypal: need the enum.
+	SellerProduct struct {
+		Name          string   `json:"name"`
+		VettingStatus string   `json:"vetting_status"`
+		Status        string   `json:"status"`
+		Capabilities  []string `json:"capabilities"`
+	}
+
+	MerchantIntegration struct {
+		TrackingID            string                            `json:"tracking_id"`
+		MerchantID            string                            `json:"merchant_id"`
+		Capabilities          []MerchantIntegrationCapabilities `json:"capabilities"`
+		Products              []SellerProduct                   `json:"products"`
+		LegalName             string                            `json:"legal_name"`
+		PaymentsReceivable    bool                              `json:"payments_receivable"`
+		PrimaryEmailConfirmed bool                              `json:"primary_email_confirmed"`
+		PrimaryEmail          string                            `json:"primary_email"`
+		DateCreated           string                            `json:"date_created"`
+		GrantedPermissions    []string                          `json:"granted_permissions"`
+		OAuthIntegrations     []OAuthIntegration                `json:"oauth_integrations"`
+	}
+
+	MerchantIntegrationCapabilities struct {
+		Limits []struct {
+			Type string `json:"type"`
+		} `json:"limits"`
+		Name   string `json:"name"`
+		Status string `json:"status"`
+		// TODO: ApiCredentials
+	}
 )
 
 // Error method implementation for ErrorResponse struct
